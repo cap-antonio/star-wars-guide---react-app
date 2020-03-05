@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/star-wars-guide---react-app.git/static/css/main.3690db49.chunk.css",
+    "main.js": "/star-wars-guide---react-app.git/static/js/main.4d0fc16b.chunk.js",
+    "main.js.map": "/star-wars-guide---react-app.git/static/js/main.4d0fc16b.chunk.js.map",
+    "runtime-main.js": "/star-wars-guide---react-app.git/static/js/runtime-main.441241a2.js",
+    "runtime-main.js.map": "/star-wars-guide---react-app.git/static/js/runtime-main.441241a2.js.map",
+    "static/js/2.619f0317.chunk.js": "/star-wars-guide---react-app.git/static/js/2.619f0317.chunk.js",
+    "static/js/2.619f0317.chunk.js.map": "/star-wars-guide---react-app.git/static/js/2.619f0317.chunk.js.map",
+    "index.html": "/star-wars-guide---react-app.git/index.html",
+    "precache-manifest.71810d4457c529f70240ec873397d475.js": "/star-wars-guide---react-app.git/precache-manifest.71810d4457c529f70240ec873397d475.js",
+    "service-worker.js": "/star-wars-guide---react-app.git/service-worker.js",
+    "static/css/main.3690db49.chunk.css.map": "/star-wars-guide---react-app.git/static/css/main.3690db49.chunk.css.map",
+    "static/js/2.619f0317.chunk.js.LICENSE.txt": "/star-wars-guide---react-app.git/static/js/2.619f0317.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.441241a2.js",
+    "static/js/2.619f0317.chunk.js",
+    "static/css/main.3690db49.chunk.css",
+    "static/js/main.4d0fc16b.chunk.js"
+  ]
+}
