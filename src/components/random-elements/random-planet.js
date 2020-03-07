@@ -14,13 +14,7 @@ const RandomPlanet = () => {
     const updatePlanet = () => {
         const id = Math.floor(Math.random()*17) + 2
         swapiService.getPlanet(id).then((planet) => {
-            setPlanet({
-                id,
-                name: planet.name,
-                population: planet.population,
-                rotationPeriod: planet.rotation_period,
-                diameter: planet.diameter
-            })
+            setPlanet(planet)
         })
     }
     useEffect(() => {
