@@ -39,11 +39,11 @@ const RandomPlanet = () => {
                     </li>
                     <li className="list-group-item">
                         <span className="term">Rotation Period:</span>
-                        <span>{planet.rotationPeriod}</span>
+                        <span>{`${planet.rotationPeriod} days`}</span>
                     </li>
                     <li className="list-group-item">
                         <span className="term">Diameter:</span>
-                        <span>{planet.diameter}</span>
+                        <span>{`${planet.diameter} km`}</span>
                     </li>
                 </ul>
             </div>
