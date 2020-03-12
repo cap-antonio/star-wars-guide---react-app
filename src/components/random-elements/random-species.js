@@ -1,21 +1,35 @@
 import React, { useState, useEffect } from 'react'
 import './random-species.css'
 import SwapiService from '../../API/swapiService'
+import Spinner from '../spinner/spinner'
 
 const RandomSpecies = () => {
     const swapiService = new SwapiService()
     const[species, setSpecies] = useState({})
+    const[loading, setLoading] = useState(true)
     const updateSpecies = () => {
         const id = Math.floor(Math.random()*35) + 2
         swapiService.getSpecies(id).then((oneSpecies) => {
             setSpecies(oneSpecies)
+            setLoading(false)
         })
     }
     useEffect(() => {
         updateSpecies()
       }, "");
+    const spinner = loading ? <Spinner /> : null
+    const content = !loading ? <SpeciesView species = {species} /> : null
     return (
         <div className="random-species jumbotron rounded">
+            {spinner}
+            {content}
+        </div>
+    )
+}
+
+const SpeciesView = ({species}) => {
+    return (
+        <React.Fragment>
             <img className="species-image"
                 src={`https://starwars-visualguide.com/assets/img/species/${species.id}.jpg`} />
             <div>
@@ -38,8 +52,8 @@ const RandomSpecies = () => {
                         <span>{!species.height ? "unknown" : species.height}</span>
                     </li>
                 </ul>
-            </div>
-        </div>
+            </div> 
+        </React.Fragment>
     )
 }
 
