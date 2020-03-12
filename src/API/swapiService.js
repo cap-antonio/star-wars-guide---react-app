@@ -9,14 +9,15 @@ export default class SwapiService {
     }
     getAllPeople = async () => {
         const res = await this.getResource(`/people/`)
-        return res.results
+        return res.results.map(this._transformPerson)
     }
     getPerson = async (id) => {
-        return await this.getResource(`/people/${id}/`)
+        const person = await this.getResource(`/people/${id}/`)
+        return this._transformPerson(person)
     }
     getAllPlanets = async () => {
         const res = await this.getResource(`/planets/`)
-        return res.results.map(this._transformPlanet())
+        return res.results.map(this._transformPlanet)
     }
     getPlanet = async (id) => {
         const planet = await this.getResource(`/planets/${id}/`)
@@ -24,9 +25,11 @@ export default class SwapiService {
     }
     getAllStarships = async () => {
         const res = await this.getResource(`/starships/`)
+        return res.results.map(this._transformStarship)
     }
     getStarship = async (id) => {
-        return await this.getResource(`/starships/${id}/`)
+        const starship = await this.getResource(`/starships/${id}/`)
+        return this._transformStarship(starship)
     }
     getSpecies = async (id) => {
         const species = await this.getResource(`/species/${id}`)
@@ -37,7 +40,6 @@ export default class SwapiService {
         return item.url.match(idRegExp)[1]
     }
     _transformPlanet(planet) {
-        
         return {
             id: this._extractId(planet),
             name: planet.name,
@@ -55,6 +57,27 @@ export default class SwapiService {
             lifespan: species.average_lifespan,
             height: species.average_height
         }
-
     }
+    _transformStarship(starship) {
+        return {
+            id: this._extractId(starship),
+            name: starship.name,
+            starshipClass: starship.starship_class,
+            manufacturer: starship.manufacturer,
+            length: starship.length,
+            cost: starship.costInCredits,
+            crew: starship.crew,
+            cargoCapacity: starship.cargoCapacity,
+            passengers: starship.passengers
+
+        }
+    }
+    _transformPerson(person) {
+        return {
+            id: this._extractId(person),
+            name: person.name,
+            height: person.height,
+            mass: person.mass,
+    }
+}
 }
