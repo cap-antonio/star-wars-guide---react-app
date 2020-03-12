@@ -4,13 +4,7 @@ import SwapiService from '../../API/swapiService'
 
 const RandomPlanet = () => {
     const swapiService = new SwapiService()
-    const[planet, setPlanet] = useState({
-        id: null,
-        name: null,
-        population: null,
-        rotationPeriod: null,
-        diameter: null
-    })
+    const[planet, setPlanet] = useState({})
     const updatePlanet = () => {
         const id = Math.floor(Math.random()*17) + 2
         swapiService.getPlanet(id).then((planet) => {

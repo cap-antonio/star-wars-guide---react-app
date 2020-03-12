@@ -4,25 +4,11 @@ import SwapiService from '../../API/swapiService'
 
 const RandomSpecies = () => {
     const swapiService = new SwapiService()
-    const[species, setSpecies] = useState({
-        id: null,
-        name: null,
-        classification: null,
-        language: null,
-        lifespan: null,
-        height: null
-    })
+    const[species, setSpecies] = useState({})
     const updateSpecies = () => {
         const id = Math.floor(Math.random()*35) + 2
         swapiService.getSpecies(id).then((oneSpecies) => {
-            setSpecies({
-                id,
-                name: oneSpecies.name,
-                classification: oneSpecies.classification,
-                language: oneSpecies.language,
-                lifespan: oneSpecies.average_lifespan,
-                height: oneSpecies.average_height
-            })
+            setSpecies(oneSpecies)
         })
     }
     useEffect(() => {
@@ -45,11 +31,11 @@ const RandomSpecies = () => {
                     </li>
                     <li className="list-group-item">
                         <span className="term">Avegage Lifespan:</span>
-                        <span>{species.lifespan}</span>
+                        <span>{!species.lifespan ? "unknown" : species.lifespan}</span>
                     </li>
                     <li className="list-group-item">
                         <span className="term">Height:</span>
-                        <span>{species.height}</span>
+                        <span>{!species.height ? "unknown" : species.height}</span>
                     </li>
                 </ul>
             </div>

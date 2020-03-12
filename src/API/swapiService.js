@@ -29,7 +29,8 @@ export default class SwapiService {
         return await this.getResource(`/starships/${id}/`)
     }
     getSpecies = async (id) => {
-        return await this.getResource(`/species/${id}`)
+        const species = await this.getResource(`/species/${id}`)
+        return this._transformSpecies(species)
     }
     _extractId(item) {
         const idRegExp = /\/([0-9]*)\/$/
@@ -44,5 +45,16 @@ export default class SwapiService {
             rotationPeriod: planet.rotation_period,
             diameter: planet.diameter
         }
+    }
+    _transformSpecies(species) {
+        return {
+            id: this._extractId(species),
+            name: species.name,
+            classification: species.classification,
+            language: species.language,
+            lifespan: species.average_lifespan,
+            height: species.average_height
+        }
+
     }
 }
