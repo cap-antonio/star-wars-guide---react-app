@@ -23,6 +23,12 @@ const RandomPlanet = () => {
     useEffect(() => {
         updatePlanet()
       }, "");
+    useEffect(() => {
+        const interval = setInterval(() => {
+          updatePlanet()
+        }, 10000);
+        return () => clearInterval(interval);
+      }, []);
       
     const hasData = !(loading || error)
     const errorMessage = error ? <ErrorIndicator /> : null

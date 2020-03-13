@@ -22,7 +22,14 @@ const RandomSpecies = () => {
     }
     useEffect(() => {
         updateSpecies()
-      }, "");
+    }, "");
+    useEffect(() => {
+        const interval = setInterval(() => {
+            updateSpecies()
+        }, 12000);
+        return () => clearInterval(interval);
+      }, []);
+
 
     const hasData = !(loading || error)
     const errorMessage = error ? <ErrorIndicator /> : null
