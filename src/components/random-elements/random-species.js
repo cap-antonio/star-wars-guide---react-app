@@ -20,9 +20,11 @@ const RandomSpecies = () => {
         setError(true)
         setLoading(false)
     }
+    // The first calling of random content
     useEffect(() => {
         updateSpecies()
-    }, "");
+    }, []);
+    // Update the random content in every 12 sec
     useEffect(() => {
         const interval = setInterval(() => {
             updateSpecies()
@@ -47,7 +49,7 @@ const RandomSpecies = () => {
 const SpeciesView = ({species}) => {
     return (
         <React.Fragment>
-            <img className="species-image"
+            <img className="species-image" alt = {species.name}
                 src={`https://starwars-visualguide.com/assets/img/species/${species.id}.jpg`} />
             <div>
                 <h4>{species.name ? species.name : "species name"}</h4>

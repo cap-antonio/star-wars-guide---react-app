@@ -20,9 +20,11 @@ const RandomPlanet = () => {
         setError(true)
         setLoading(false)
     }
+    // The first calling of random content 
     useEffect(() => {
         updatePlanet()
-      }, "");
+      }, []);
+    // Update the random content in every 10 sec
     useEffect(() => {
         const interval = setInterval(() => {
           updatePlanet()
@@ -46,7 +48,7 @@ const RandomPlanet = () => {
 const PlanetView = ({planet}) => {
     return (
         <React.Fragment>
-            <img className="planet-image"
+            <img className="planet-image" alt = {planet.name}
                 src={`https://starwars-visualguide.com/assets/img/planets/${planet.id}.jpg`} />
             <div>
                 <h4>{planet.name ? planet.name : "Planet name"}</h4>
