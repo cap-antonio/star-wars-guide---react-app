@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import './random-planet.css'
-import SwapiService from '../../API/swapiService'
 import Spinner from '../spinner/spinner'
 import ErrorIndicator from '../errorIndicator'
+import withSwapiService from '../hoc-helpers/withSwapiService'
+import ErrorCatcher from '../ErrorCatcher/ErrorCatcher'
 
-const RandomPlanet = () => {
-    const swapiService = new SwapiService()
+const RandomPlanet = ({swapiService}) => {
+    // const swapiService = new SwapiService() 
+    const {getPlanet, getPlanetImage} = swapiService
     const[planet, setPlanet] = useState({})
     const[loading, setLoading] = useState(true)
     const[error, setError] = useState(false)
     const updatePlanet = () => {
         const id = Math.floor(Math.random()*17) + 2
-        swapiService.getPlanet(id).then((planet) => {
+        getPlanet(id).then((planet) => {
             setPlanet(planet)
             setLoading(false)
         }).catch(onError)
@@ -20,7 +22,7 @@ const RandomPlanet = () => {
         setError(true)
         setLoading(false)
     }
-    // The first calling of random content 
+    // The first call of random content 
     useEffect(() => {
         updatePlanet()
       }, []);
@@ -35,7 +37,7 @@ const RandomPlanet = () => {
     const hasData = !(loading || error)
     const errorMessage = error ? <ErrorIndicator /> : null
     const spinner = loading ? <Spinner /> : null
-    const content = hasData ? <PlanetView planet = {planet} /> : null
+    const content = hasData ? <PlanetView planet = {planet} getImage = {getPlanetImage} /> : null
     return (
         <div className="random-planet jumbotron rounded">
             {errorMessage}
@@ -45,30 +47,31 @@ const RandomPlanet = () => {
     )
 }
 
-const PlanetView = ({planet}) => {
+
+const PlanetView = ({planet, getImage}) => {
     return (
-        <React.Fragment>
+        <ErrorCatcher>
             <img className="planet-image" alt = {planet.name}
-                src={`https://starwars-visualguide.com/assets/img/planets/${planet.id}.jpg`} />
+                src={getImage(planet.id)} /> 
             <div>
                 <h4>{planet.name ? planet.name : "Planet name"}</h4>
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item">
                         <span className="term">Population:</span>
-                        <span>{planet.population}</span>
+                        <span>{!planet.population ? "Unknown" : `${planet.population} creators`}</span>
                     </li>
                     <li className="list-group-item">
                         <span className="term">Rotation Period:</span>
-                        <span>{`${planet.rotationPeriod} days`}</span>
+                        <span>{!planet.rotationPeriod ? "Unknown" : `${planet.rotationPeriod} days`}</span>
                     </li>
                     <li className="list-group-item">
                         <span className="term">Diameter:</span>
-                        <span>{`${planet.diameter} km`}</span>
+                        <span>{! planet.diameter ? "Unknown" : `${planet.diameter} km`}</span>
                     </li>
                 </ul>
             </div>
-        </React.Fragment>
+        </ErrorCatcher>
     )
 }
 
-export default RandomPlanet
+export default withSwapiService(RandomPlanet)

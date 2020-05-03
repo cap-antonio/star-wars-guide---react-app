@@ -1,38 +1,23 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './app.css'
 import Header from '../header'
-import ItemList from '../item-list'
-import PersonDetails from '../person-details'
-import RandomElements from '../random-elements'
+import RandomElements from '../random-elements/random-elements'
+import InfoPages from '../InfoPages/InfoPages'
+import ErrorCatcher from '../ErrorCatcher/ErrorCatcher'
+import { SwapiServiceProvider, SwapiServiceConsumer } from '../swapiservice-context/swapiservice-context'
 import SwapiService from '../../API/swapiService'
+const swapiService = new SwapiService()
 
 const App = () => {
-    const[showPerson, setShowPerson] = useState({})
-    const onItemSelected = (id) => {
-        swapiService.getPerson(id).then((person) => {
-            setShowPerson({ person })
-        }).catch(onError)
-    }
-    const swapiService = new SwapiService()
-    
-    const[error, setError] = useState(false)
-    const onError = (err) => {
-        setError(true)
-    }
-    console.log(showPerson)
+
     return (
-        <div>
-            <Header />
-            <RandomElements />
-            <div className = "row mb2">
-                <div className = "col-md-6">
-                    <ItemList onItemSelected = {onItemSelected} />
-                </div>
-                <div className = "col-md-6">
-                    <PersonDetails showPerson = {showPerson} error = {error} />
-                </div>
-            </div>
-        </div>
+        <ErrorCatcher>
+            <SwapiServiceProvider value={swapiService}>
+                <Header />
+                <RandomElements />
+                <InfoPages />
+            </SwapiServiceProvider>
+        </ErrorCatcher>
     )
 }
 

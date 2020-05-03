@@ -1,10 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import './person-details.css'
 
 const PersonDetails = (props) => {
-    
     const personDet = props.showPerson.person
-
     if(!personDet) {
         return null
     }
@@ -12,7 +10,7 @@ const PersonDetails = (props) => {
         <React.Fragment>
             <div className="person-details card">
                 <img className="person-image" alt = "Alt"
-                    src={`https://starwars-visualguide.com/assets/img/characters/${personDet.id}.jpg` }/>
+                    src={props.getImage(personDet.id)}/>
 
                 <div className="card-body">
                     <h4>{personDet.name}</h4>

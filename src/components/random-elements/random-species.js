@@ -3,15 +3,18 @@ import './random-species.css'
 import SwapiService from '../../API/swapiService'
 import Spinner from '../spinner/'
 import ErrorIndicator from '../errorIndicator/'
+import withSwapiService from '../hoc-helpers/withSwapiService'
+import ErrorCatcher from '../ErrorCatcher/ErrorCatcher'
 
-const RandomSpecies = () => {
-    const swapiService = new SwapiService()
+const RandomSpecies = ({swapiService}) => {
+    // const swapiService = new SwapiService()
+    const {getSpecies, getSpeciesImage} = swapiService
     const[species, setSpecies] = useState({})
     const[loading, setLoading] = useState(true)
     const[error, setError] = useState(false)
     const updateSpecies = () => {
         const id = Math.floor(Math.random()*35) + 2
-        swapiService.getSpecies(id).then((oneSpecies) => {
+        getSpecies(id).then((oneSpecies) => {
             setSpecies(oneSpecies)
             setLoading(false)
         }).catch(onError)
@@ -36,7 +39,7 @@ const RandomSpecies = () => {
     const hasData = !(loading || error)
     const errorMessage = error ? <ErrorIndicator /> : null
     const spinner = loading ? <Spinner /> : null
-    const content = hasData ? <SpeciesView species = {species} /> : null
+    const content = hasData ? <SpeciesView species = {species} getImage = {getSpeciesImage} /> : null
     return (
         <div className="random-species jumbotron rounded">
             {errorMessage}
@@ -46,11 +49,11 @@ const RandomSpecies = () => {
     )
 }
 
-const SpeciesView = ({species}) => {
+const SpeciesView = ({species, getImage}) => {
     return (
-        <React.Fragment>
+        <ErrorCatcher>
             <img className="species-image" alt = {species.name}
-                src={`https://starwars-visualguide.com/assets/img/species/${species.id}.jpg`} />
+                src={getImage(species.id)} />
             <div>
                 <h4>{species.name ? species.name : "species name"}</h4>
                 <ul className="list-group list-group-flush">
@@ -72,8 +75,8 @@ const SpeciesView = ({species}) => {
                     </li>
                 </ul>
             </div> 
-        </React.Fragment>
+        </ErrorCatcher>
     )
 }
 
-export default RandomSpecies
+export default withSwapiService(RandomSpecies)
