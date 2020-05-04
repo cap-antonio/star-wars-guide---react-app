@@ -1,13 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import './random-planet.css'
 import Spinner from '../spinner/spinner'
 import ErrorIndicator from '../errorIndicator'
-import withSwapiService from '../hoc-helpers/withSwapiService'
 import ErrorCatcher from '../ErrorCatcher/ErrorCatcher'
+import { SwapiServiceContext } from '../swapiservice-context/swapiservice-context'
 
-const RandomPlanet = ({swapiService}) => {
-    // const swapiService = new SwapiService() 
+const RandomPlanet = () => {
+
+    const swapiService = useContext(SwapiServiceContext)
+
     const {getPlanet, getPlanetImage} = swapiService
+
     const[planet, setPlanet] = useState({})
     const[loading, setLoading] = useState(true)
     const[error, setError] = useState(false)
@@ -32,12 +35,12 @@ const RandomPlanet = ({swapiService}) => {
           updatePlanet()
         }, 10000);
         return () => clearInterval(interval);
-      }, []);
+      });
       
     const hasData = !(loading || error)
     const errorMessage = error ? <ErrorIndicator /> : null
     const spinner = loading ? <Spinner /> : null
-    const content = hasData ? <PlanetView planet = {planet} getImage = {getPlanetImage} /> : null
+    const content = hasData ? <PlanetView planet = {planet} getImage = {getPlanetImage} loading = {loading} /> : null
     return (
         <div className="random-planet jumbotron rounded">
             {errorMessage}
@@ -48,7 +51,7 @@ const RandomPlanet = ({swapiService}) => {
 }
 
 
-const PlanetView = ({planet, getImage}) => {
+const PlanetView = ({planet, getImage, loading}) => {
     return (
         <ErrorCatcher>
             <img className="planet-image" alt = {planet.name}
@@ -58,7 +61,7 @@ const PlanetView = ({planet, getImage}) => {
                 <ul className="list-group list-group-flush">
                     <li className="list-group-item">
                         <span className="term">Population:</span>
-                        <span>{!planet.population ? "Unknown" : `${planet.population} creators`}</span>
+                        <span>{!planet.population || planet.population === "unknown" ? "Unknown" : `${planet.population} creators`}</span>
                     </li>
                     <li className="list-group-item">
                         <span className="term">Rotation Period:</span>
@@ -74,4 +77,4 @@ const PlanetView = ({planet, getImage}) => {
     )
 }
 
-export default withSwapiService(RandomPlanet)
+export default RandomPlanet

@@ -35,4 +35,4 @@ const StarshipPage = ({getData, onStarshipSelected, showStarship}) => {
     )
 }
 
-export default StarshipPage
+export {StarshipPage}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import ErrorIndicator from '../errorIndicator'
 import ItemList from '../item-list'
-import PlanetDetails from './planet-details/planet-details'
+import PlanetDetails from '../planet-details/planet-details'
 import Row from '../InfoPages/Row'
 import ErrorCatcher from '../ErrorCatcher/ErrorCatcher'
 
@@ -35,4 +35,4 @@ const PlanetPage = ({ getData, onPlanetSelected, showPlanet }) => {
     )
 }
 
-export default PlanetPage
+export {PlanetPage}

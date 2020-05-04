@@ -2,7 +2,7 @@ import React from 'react'
 import './item-details.css'
 import ErrorCatcher from '../ErrorCatcher/ErrorCatcher'
 
-const ItemDetails = ({showItem, getImage, error}) => {
+const ItemDetails = ({ showItem, getImage }) => {
 
     const itemDet = showItem.item
     if (!itemDet) {
@@ -11,20 +11,20 @@ const ItemDetails = ({showItem, getImage, error}) => {
     const re = /_/
     const contentObj = Object.fromEntries(
         Object.entries(itemDet)
-        .map(([ key, val ]) => [ key.replace(re, " "), val])
-        
+            .map(([key, val]) => [key.replace(re, " "), val])
+
     );
     // Remove duplicated data such as ID and an item Name
     delete contentObj.id
     delete contentObj.name
-    const content = Object.entries(contentObj).map(([key,value])=>{
+    const content = Object.entries(contentObj).map(([key, value]) => {
         return (
-            <li key = {Math.random()} className="list-group-item">
+            <li key={Math.random()} className="list-group-item">
                 <span className="term">{`${key.toString().replace(re, " ")}:`}</span>
                 <span>{value}</span>
             </li>
         );
-      })
+    })
     return (
         <ErrorCatcher>
             <div className="item-details card">
@@ -38,7 +38,6 @@ const ItemDetails = ({showItem, getImage, error}) => {
                     </ul>
                 </div>
             </div>
-
         </ErrorCatcher>
     )
 }

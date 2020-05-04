@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import './random-species.css'
-import SwapiService from '../../API/swapiService'
 import Spinner from '../spinner/'
 import ErrorIndicator from '../errorIndicator/'
-import withSwapiService from '../hoc-helpers/withSwapiService'
 import ErrorCatcher from '../ErrorCatcher/ErrorCatcher'
+import { SwapiServiceContext } from '../swapiservice-context/swapiservice-context'
 
-const RandomSpecies = ({swapiService}) => {
-    // const swapiService = new SwapiService()
-    const {getSpecies, getSpeciesImage} = swapiService
+const RandomSpecies = () => {
+
+    const swapiService = useContext(SwapiServiceContext)
+
+    const{getSpecies, getSpeciesImage} = swapiService
+
     const[species, setSpecies] = useState({})
     const[loading, setLoading] = useState(true)
     const[error, setError] = useState(false)
@@ -66,7 +68,7 @@ const SpeciesView = ({species, getImage}) => {
                         <span>{species.language}</span>
                     </li>
                     <li className="list-group-item">
-                        <span className="term">Avegage Lifespan:</span>
+                        <span className="term">Average Lifespan:</span>
                         <span>{!species.lifespan ? "unknown" : species.lifespan}</span>
                     </li>
                     <li className="list-group-item">
@@ -79,4 +81,4 @@ const SpeciesView = ({species, getImage}) => {
     )
 }
 
-export default withSwapiService(RandomSpecies)
+export default RandomSpecies

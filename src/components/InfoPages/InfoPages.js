@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Row from './Row'
 import ItemList from '../item-list'
 import ErrorIndicator from '../errorIndicator'
 import ItemDetails from '../item-details'
 import Spinner from '../spinner/spinner'
-import withSwapiService from '../hoc-helpers/withSwapiService'
+import {SwapiServiceContext} from "./../swapiservice-context/swapiservice-context"
 
-const InfoPages = ({swapiService}) => {
+const InfoPages = () => {
+
+    const swapiService = useContext(SwapiServiceContext)
+
     const {getPerson, getPlanet, getStarship, getAllPeople, getAllPlanets, 
         getAllStarships, getPersonImage, getPlanetImage, getStarshipImage} = swapiService
 
@@ -50,10 +53,10 @@ const InfoPages = ({swapiService}) => {
         }).catch(onError)
         getAllStarships().then((starshipList) => {
             setAllStarship(starshipList)
-    }).catch(onError)
+        }).catch(onError)
         setLoading(false)
-    }, [])
-    
+    }, [getAllPeople, getAllPlanets, getAllStarships])
+
     if (error) {
         return <ErrorIndicator />
     }
@@ -72,4 +75,4 @@ const InfoPages = ({swapiService}) => {
     )
 }
 
-export default withSwapiService(InfoPages)
+export default InfoPages

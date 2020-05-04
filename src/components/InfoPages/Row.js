@@ -1,6 +1,5 @@
 import React from 'react'
 import ErrorCatcher from '../ErrorCatcher/ErrorCatcher'
-import SwapiService from '../../API/swapiService'
 
 const Row = ({ left, right }) => {
     return (
