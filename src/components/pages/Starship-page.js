@@ -1,38 +1,16 @@
-import React, { useState, useEffect } from 'react'
-import ErrorIndicator from '../errorIndicator'
+import React from 'react'
 import ItemList from '../item-list'
-import StarshipDetails from './starship-details'
 import Row from '../InfoPages/Row'
 import ErrorCatcher from '../ErrorCatcher/ErrorCatcher'
+import ItemDetails from '../item-details'
 
-const StarshipPage = ({getData, onStarshipSelected, showStarship}) => {
-    const[allStarship, setAllStarship] = useState([])
-    const[loading, setLoading] = useState(false)
-    const[error, setError] = useState(false)
-    const onError = (err) => {
-        setError(true)
-    }
-    const getAllStarship = () => {
-        setLoading(true)
-        getData.then((starshipList) => {
-            setAllStarship(starshipList)
-        setLoading(false)
-    }).catch(onError)
-    }
-    useEffect(() => {
-        setLoading(true)
-        getAllStarship()
-        setLoading(false)
-    }, [])
-    if(error) {
-        return <ErrorIndicator />
-    }
+const StarshipPage = ({ onItemSelected, allItems, showItem, error, loading, getImage }) => {
     return (
         <ErrorCatcher>
-            <Row left = {<ItemList onItemSelected={onStarshipSelected} allItems = {allStarship} loading = {loading} error = {error} />}
-                right = {<StarshipDetails showStarship={showStarship} error = {error} />} />
+            <Row left = {<ItemList onItemSelected={onItemSelected} allItems={allItems} loading={loading} error={error} />}
+                right = {<ItemDetails showItem={showItem} error={error} getImage = {getImage} />} />
         </ErrorCatcher>
     )
 }
 
-export {StarshipPage}
+export default StarshipPage

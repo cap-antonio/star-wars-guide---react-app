@@ -2,14 +2,15 @@ import React from 'react'
 import ItemList from '../item-list'
 import Row from '../InfoPages/Row'
 import ErrorCatcher from '../ErrorCatcher/ErrorCatcher'
+import ItemDetails from '../item-details'
 
-const PeoplePage = ({ onPeopleSelected, allPeople, showPerson, error, loading, getPersonImage }) => {
+const PeoplePage = ({ onItemSelected, allItems, showItem, error, loading, getImage }) => {
     return (
         <ErrorCatcher>
-            <Row left = {<ItemList onItemSelected={onPeopleSelected} allItems={allPeople} loading={loading} error={error} />}
-                right = {<ItemDetails showItem={showPerson} error={error} getImage = {getPersonImage} />} />
+            <Row left = {<ItemList onItemSelected={onItemSelected} allItems={allItems} loading={loading} error={error} />}
+                right = {<ItemDetails showItem={showItem} error={error} getImage = {getImage} />} />
         </ErrorCatcher>
     )
 }
 
-export {PeoplePage}
+export default PeoplePage

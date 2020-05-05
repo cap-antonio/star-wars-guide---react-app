@@ -3,14 +3,12 @@ import './item-details.css'
 import ErrorCatcher from '../ErrorCatcher/ErrorCatcher'
 
 const ItemDetails = ({ showItem, getImage }) => {
-
-    const itemDet = showItem.item
-    if (!itemDet) {
+    if (Object.keys(showItem).length === 0 && showItem.constructor === Object) {
         return null
     }
     const re = /_/
     const contentObj = Object.fromEntries(
-        Object.entries(itemDet)
+        Object.entries(showItem)
             .map(([key, val]) => [key.replace(re, " "), val])
 
     );
@@ -29,10 +27,10 @@ const ItemDetails = ({ showItem, getImage }) => {
         <ErrorCatcher>
             <div className="item-details card">
                 <img className="item-image" alt="Alt"
-                    src={getImage(itemDet.id)} />
+                    src={getImage(showItem.id)} />
 
                 <div className="card-body">
-                    <h4>{itemDet.name}</h4>
+                    <h4>{showItem.name}</h4>
                     <ul className="list-group list-group-flush">
                         {content}
                     </ul>

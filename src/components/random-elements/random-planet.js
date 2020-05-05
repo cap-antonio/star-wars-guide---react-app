@@ -28,6 +28,7 @@ const RandomPlanet = () => {
     // The first call of random content 
     useEffect(() => {
         updatePlanet()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
     // Update the random content in every 10 sec
     useEffect(() => {

@@ -6,6 +6,7 @@ import InfoPages from '../InfoPages/InfoPages'
 import ErrorCatcher from '../ErrorCatcher/ErrorCatcher'
 import { SwapiServiceContext } from '../swapiservice-context/swapiservice-context'
 import SwapiService from '../../API/swapiService'
+import { BrowserRouter as Router } from 'react-router-dom'
 const swapiService = new SwapiService()
 
 const App = () => {
@@ -13,9 +14,11 @@ const App = () => {
     return (
         <ErrorCatcher>
             <SwapiServiceContext.Provider value={swapiService}>
-                <Header />
-                <RandomElements />
-                <InfoPages />
+                <Router>
+                    <Header />
+                    <RandomElements />
+                    <InfoPages />
+                </Router>
             </SwapiServiceContext.Provider>
         </ErrorCatcher>
     )

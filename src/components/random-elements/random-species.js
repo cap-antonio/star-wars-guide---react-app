@@ -28,6 +28,7 @@ const RandomSpecies = () => {
     // The first calling of random content
     useEffect(() => {
         updateSpecies()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     // Update the random content in every 12 sec
     useEffect(() => {
@@ -35,7 +36,7 @@ const RandomSpecies = () => {
             updateSpecies()
         }, 12000);
         return () => clearInterval(interval);
-      }, []);
+      });
 
 
     const hasData = !(loading || error)
