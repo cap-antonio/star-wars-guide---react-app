@@ -6,7 +6,7 @@ const Header = () => {
     return (
         <div className="header d-flex">
             <h3>
-                <Link exact to="/people">
+                <Link exact = "true" to="/people">
                     StarWars DB
                 </Link>
             </h3>

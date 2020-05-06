@@ -1,10 +1,16 @@
 import React from 'react'
 import './item-details.css'
 import ErrorCatcher from '../ErrorCatcher/ErrorCatcher'
+import { withRouter } from 'react-router-dom'
 
-const ItemDetails = ({ showItem, getImage }) => {
+const ItemDetails = ({ showItem, getImage, history, match }) => {
     if (Object.keys(showItem).length === 0 && showItem.constructor === Object) {
         return null
+    }
+    
+    const clickHandle = () => {
+        const id = showItem.id
+        history.push(`${match.path}/${id}`)
     }
     const re = /_/
     const contentObj = Object.fromEntries(
@@ -22,7 +28,8 @@ const ItemDetails = ({ showItem, getImage }) => {
                 <span>{value}</span>
             </li>
         );
-    })
+    }) 
+    
     return (
         <ErrorCatcher>
             <div className="item-details card">
@@ -34,10 +41,13 @@ const ItemDetails = ({ showItem, getImage }) => {
                     <ul className="list-group list-group-flush">
                         {content}
                     </ul>
+                    <button className = "btn btn-primary" onClick = {clickHandle}>More info</button>
                 </div>
+                
             </div>
+            
         </ErrorCatcher>
     )
 }
 
-export default ItemDetails
+export default withRouter(ItemDetails)

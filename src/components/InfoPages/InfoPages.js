@@ -7,6 +7,7 @@ import Spinner from '../spinner/spinner'
 import PeoplePage from '../pages/people-page'
 import PlanetPage from '../pages/PlanetPage'
 import StarshipPage from '../pages/Starship-page'
+import ItemPageDetails from '../ItemPageDetails/'
 
 const InfoPages = () => {
 
@@ -71,18 +72,22 @@ const InfoPages = () => {
     }
     return (
         <Switch>
-            <Route path="/people">
+            <Route path="/people" exact = {true}>
                 <PeoplePage onItemSelected={onPeopleSelected} allItems={allPeople} loading={loading} 
                             showItem={showItem.person} error={error} getImage={getPersonImage} /> 
             </Route>
-            <Route path="/planets">
+            <Route path="/planets" exact = {true}>
                 <PlanetPage onItemSelected={onPlanetSelected} allItems={allPlanets} loading={loading} 
                             showItem={showItem.planet} error={error} getImage={getPlanetImage} />
             </Route>
-            <Route path="/starships">
+            <Route path="/starships" exact = {true}> 
                 <StarshipPage onItemSelected={onStarshipSelected} allItems={allStarships} loading={loading} 
                             showItem={showItem.starship} error={error} getImage={getStarshipImage} />
             </Route>
+            <Route path="/:page/:id" render = {({match}) =>{
+                return <ItemPageDetails item = {match} />
+            }}/>
+                
         </Switch>
     )
 }

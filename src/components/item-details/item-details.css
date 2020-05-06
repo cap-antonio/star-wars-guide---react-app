@@ -21,3 +21,6 @@
 li::first-letter {
     text-transform: uppercase;
 }
+button {
+    margin-top: 1rem;
+}
